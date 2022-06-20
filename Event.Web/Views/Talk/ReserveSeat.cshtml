@@ -1,0 +1,80 @@
+﻿@model Event.Web.Models.ReserveSeatModel
+@{
+    ViewData["Title"] = "Register Talk";
+}
+<form asp-action="ReserveSeat">
+    <div>
+        <h2 class="display-4">Reserve a seat for a talk</h2>
+        <hr />
+        <div class="row form-group">
+            <div class="col-md-2">
+                <label>Convention</label>
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => Model.SelectedConventionId, new SelectList(Model.MyConventions, "Id", "Name"), "-- SELECT --", htmlAttributes: new { @class = "form-control", onchange = "document.forms[0].submit();" })
+            </div>
+        </div>
+        @if (Model.SelectedConventionId > 0)
+        {
+            <div class="row form-group">
+
+                <div class="col-md-2">
+                    <label>Select Venue</label>
+                </div>
+                <div class="col-md-4">
+                    @Html.DropDownListFor(x => Model.SelectedVenueId, new SelectList(Model.MyConventions.Single(t => t.Id == Model.SelectedConventionId).Venues, "Id", "Name"), "-- SELECT --", htmlAttributes: new { @class = "form-control", onchange = "document.forms[0].submit();" })
+                </div>
+
+            </div>
+            @if (Model.SelectedVenueId > 0)
+            {
+                <div class="row form-group">
+
+                    <div class="col-md-2">
+                        <label>Select Topic</label>
+                    </div>
+                    <div class="col-md-4">
+
+                        @Html.DropDownListFor(x => Model.SelectedTalkId, new SelectList(Model.MyConventions.Single(t => t.Id == Model.SelectedConventionId).Venues.Single(v => v.Id == Model.SelectedVenueId).Talks.Where(t=>!t.HasReservedSeat).ToList(), "Id", "Topic"), "-- SELECT --", htmlAttributes: new { @class = "form-control", onchange = "document.forms[0].submit();" })
+                    </div>
+
+                </div>
+                @if (Model.SelectedTalkId > 0)
+                {
+                    var talk = Model.MyConventions.Single(t => t.Id == Model.SelectedConventionId).Venues.Single(v => v.Id == Model.SelectedVenueId).Talks.Single(t => t.Id == Model.SelectedTalkId);
+                    <div class="row form-group">
+                        <div class="col-md-2">
+                            <label>Speaker</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>@talk.Speaker</label>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-2">
+                            <label>Info about the talk</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label>@talk.Info</label>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-4">
+                            <input style="margin: 0 10px 0 0" type="checkbox" asp-for="HasAcceptedTermsAndConditions" /><a asp-controller="Account" asp-action="Profile">I agree to the terms and conditions</a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary float-right">Reserve Seat</button>
+                        </div>
+                    </div>
+                }
+            }
+        }
+
+
+    </div>
+</form>

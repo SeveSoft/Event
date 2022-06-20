@@ -1,0 +1,21 @@
+
+{
+    "region" : "us-west-1",
+    "configuration" : "Debug",
+    "framework"     : "net5.0",
+    "self-contained" : false,
+    "application"    : "EventApi",
+    "environment"    : "EventApi-dev",
+    "app-path"       : "/",
+    "iis-website"    : "Default Web Site",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "",
+    "solution-stack"       : "64bit Windows Server 2019 v2.10.0 running IIS 10.0",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "eventapi-dev",
+    "instance-type"        : "t3a.micro",
+    "key-pair"             : "",
+    "instance-profile"     : "aws-elasticbeanstalk-ec2-role",
+    "service-role"         : "aws-elasticbeanstalk-service-role"
+}

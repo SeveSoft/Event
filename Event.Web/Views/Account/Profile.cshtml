@@ -1,0 +1,67 @@
+﻿@model Event.Web.Models.HomeModel
+@{
+    ViewData["Title"] = "Sign Up For MARVEL Convention";
+}
+<div>
+    <h2 class="display-4">My Profile</h2>
+    <hr />
+</div>
+<div class="col-md-4">
+    <a asp-controller="Home" asp-action="Profile" class="float-right">Edit</a>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <label asp-for="@Model.User.Name"></label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <input disabled="disabled" class="form-control" asp-for="@Model.User.Name" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <label asp-for="@Model.User.Email"></label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <input disabled="disabled" class="form-control" asp-for="@Model.User.Email" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <label asp-for="@Model.User.Address"></label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <input disabled="disabled" class="form-control" asp-for="@Model.User.Address" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <label asp-for="@Model.User.PhoneNumber"></label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <input disabled="disabled" class="form-control" asp-for="@Model.User.PhoneNumber" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <label asp-for="@Model.User.UserRole"></label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <input disabled="disabled" class="form-control" asp-for="@Model.User.UserRole" />
+    </div>
+</div>
+
+<div class="row" style="padding: 20px 0 0 0">
+    <a asp-controller="Home" asp-action="Profile" class="float-right">Show Private Policies</a>
+    <a asp-controller="Home" asp-action="Profile" class="float-right">Download My Data</a>
+    <a asp-controller="Home" asp-action="Profile" class="float-right">Delete User</a>
+</div>

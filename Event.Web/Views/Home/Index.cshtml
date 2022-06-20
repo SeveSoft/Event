@@ -1,0 +1,100 @@
+﻿@model Event.Web.Models.HomeModel
+@{
+    ViewData["Title"] = "MARVEL Convention Site";
+}
+
+<div class="text-center">
+    <h2 class="display-3">Welcome</h2>
+    <h2 class="display-3">To The MARVEL Convention Site</h2>
+    <hr />
+    <h4>Upcoming Conventions</h4>
+    <div class="row">
+        <div class="col-md-12">
+            @if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <a asp-controller="SignUp" asp-action="Index" class="float-right">Sign Up</a>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="accordion" id="accordionParent" style="clear: both;">
+                @foreach (var convention in Model.UpcomingConventions)
+                {
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading_@convention.Id">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_@convention.Id" aria-expanded="false" aria-controls="collapse_@convention.Id">
+                                @convention.Name
+                            </button>
+                        </h2>
+                        <div id="collapse_@convention.Id" class="accordion-collapse collapse" aria-labelledby="heading_@convention.Id" data-bs-parent="#accordionParent">
+                            <div class="accordion-body backColor">
+                                <div class="row col-md-12">
+                                    <div class="col-md-5 subHeader text-left">Places</div>
+                                    <div class="col-md-2 subHeader text-left">City</div>
+                                    <div class="col-md-2 subHeader text-left">Postal Code</div>
+                                </div>
+                                <div class="accordion" id="accordionParent1" style="clear: both;">
+                                    @foreach (var venue in convention.Venues)
+                                    {
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="vheading_@venue.Id">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#vcollapse_@venue.Id" aria-expanded="false" aria-controls="vcollapse_@venue.Id">
+                                                    <div class="row col-md-12">
+                                                        <div class="col-md-5 text-left">@venue.Name</div>
+                                                        <div class="col-md-2 text-left">@venue.City</div>
+                                                        <div class="col-md-2 text-left">@venue.PostalCode</div>
+                                                    </div>
+                                                </button>
+                                            </h2>
+                                            <div id="vcollapse_@venue.Id" class="accordion-collapse collapse" aria-labelledby="vheading_@venue.Id" data-bs-parent="#accordionParent1">
+                                                <div class="accordion-body backColor">
+                                                    <div class="row col-md-12">
+                                                        <div class="col-md-3 subHeader text-left">Topic</div>
+                                                        <div class="col-md-3 subHeader text-left">Speaker</div>
+                                                        <div class="col-md-3 subHeader text-left">Info</div>
+                                                    </div>
+                                                    @foreach (var talk in venue.Talks)
+                                                    {
+                                                        <div class="row row col-md-12">
+                                                            <div class="col-md-3 text-left">@talk.Topic</div>
+                                                            <div class="col-md-3 text-left">@talk.Speaker</div>
+                                                            <div class="col-md-3 text-left">@talk.Info</div>
+                                                            @if (User.Identity != null && User.Identity.IsAuthenticated)
+                                                            {
+                                                                <div class="col-md-3 float-right"><a asp-controller="Talk" asp-action="ReserveSeat" class="float-right">Reserve Seat</a></div>
+                                                            }
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@*@if (User.Identity.IsAuthenticated)
+    {
+        <table class="table table-sm">
+            @foreach (var claim in User.Claims)
+            {
+                <tr>
+                    <td>@claim.Type</td>
+                    <td>@claim.Value</td>
+                </tr>
+            }
+        </table>
+    }*@

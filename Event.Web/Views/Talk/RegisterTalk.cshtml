@@ -1,0 +1,56 @@
+﻿@model Event.Web.Models.RegisterTalkModel
+@{
+    ViewData["Title"] = "Register Talk";
+}
+<form asp-action="AddTalk">
+    <div>
+        <h2 class="display-4">Register a talk for a MARVEL Convention</h2>
+        <hr />
+        <div class="row form-group">
+            <div class="col-md-2">
+                <label>Convention</label>
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(x => Model.SelectedConventionId, new SelectList(Model.MyConventions, "Id", "Name"), "-- SELECT --", htmlAttributes: new { @class = "form-control", onchange = "document.forms[0].submit();" })
+            </div>
+        </div>@if (Model.SelectedConventionId > 0)
+        {
+            <div class="row form-group">
+
+                <div class="col-md-2">
+                    <label>Select Venue</label>
+                </div>
+                <div class="col-md-4">
+                    @Html.DropDownListFor(x => Model.SelectedVenueId, new SelectList(Model.MyConventions.Single(t => t.Id == Model.SelectedConventionId).Venues, "Id", "Name"), "-- SELECT --", htmlAttributes: new { @class = "form-control" })
+                </div>
+
+            </div>
+            <div class="row form-group">
+
+                <div class="col-md-2">
+                    <label>Select Topic</label>
+                </div>
+                <div class="col-md-4">
+                    @Html.DropDownListFor(x => Model.SelectedTopicId, new SelectList(Model.Topics, "Id", "Name"), "-- SELECT --", htmlAttributes: new { @class = "form-control" })
+                </div>
+
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-2">
+                    <label>Info about the talk</label>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" asp-for="@Model.Info" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary float-right">Register</button>
+                </div>
+            </div>
+        }
+       
+
+    </div>
+</form>

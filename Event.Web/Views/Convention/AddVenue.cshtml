@@ -1,0 +1,29 @@
+﻿@model Event.Web.Models.ConventionModel
+<div class="row">
+    <h3>ADD VENUE</h3>
+</div>
+<form asp-action="AddVenue">
+
+    <table class="table">
+        <tr>
+            <th>Place</th>
+            <th>City</th>
+            <th>Postal Code</th>
+        </tr>
+    
+        @foreach (var venue in Model.Venues.Where(p => !(Model.SelectedConvention.Venues.Any(l => p.Id == l.Id))))
+        {
+            <tr>
+                <td>@venue.Name</td>
+                <td>@venue.City</td>
+                <td>@venue.PostalCode</td>
+                <td><button asp-action="AddVenue" asp-route-venueId="@venue.VenueId" asp-route-conventionId="@Model.SelectedConvention.Id" type="submit" class="btn btn-primary">Add</button></td>
+            </tr>
+        }
+    </table>
+    <div class="row">
+        <div class="col-md-5">
+            <a asp-controller="Convention" asp-action="ShowConvention" asp-route-conventionId="@Model.SelectedConvention.Id">Back</a>
+        </div>
+    </div>
+</form>

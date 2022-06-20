@@ -1,0 +1,74 @@
+﻿@model Event.Web.Models.MySeatReservationModel
+@{
+    ViewData["Title"] = "MARVEL Convention Site";
+}
+
+<div class="text-center">
+    <h2 class="display-3">My Seat Reservations</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="accordion" id="accordionParent" style="clear: both;">
+                @foreach (var convention in Model.MySeatReservations)
+                {
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading_@convention.Id">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_@convention.Id" aria-expanded="false" aria-controls="collapse_@convention.Id">
+                            @convention.Name
+                        </button>
+                    </h2>
+                    <div id="collapse_@convention.Id" class="accordion-collapse collapse" aria-labelledby="heading_@convention.Id" data-bs-parent="#accordionParent">
+                        <div class="accordion-body backColor">
+                            <div class="row col-md-12">
+                                <div class="col-md-5 subHeader text-left">Places</div>
+                                <div class="col-md-2 subHeader text-left">City</div>
+                                <div class="col-md-2 subHeader text-left">Postal Code</div>
+                            </div>
+                            <div class="accordion" id="accordionParent1" style="clear: both;">
+                                @foreach (var venue in convention.Venues)
+                                {
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="vheading_@venue.Id">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#vcollapse_@venue.Id" aria-expanded="false" aria-controls="vcollapse_@venue.Id">
+                                            <div class="row col-md-12">
+                                                <div class="col-md-5 text-left">@venue.Name</div>
+                                                <div class="col-md-2 text-left">@venue.City</div>
+                                                <div class="col-md-2 text-left">@venue.PostalCode</div>
+                                            </div>
+                                        </button>
+                                    </h2>
+                                    <div id="vcollapse_@venue.Id" class="accordion-collapse collapse" aria-labelledby="vheading_@venue.Id" data-bs-parent="#accordionParent1">
+                                        <div class="accordion-body backColor">
+                                            <div class="row col-md-12">
+                                                <div class="col-md-3 subHeader text-left">Topic</div>
+                                                <div class="col-md-3 subHeader text-left">Speaker</div>
+                                                <div class="col-md-3 subHeader text-left">Info</div>
+                                                <div class="col-md-3 subHeader text-left">Time</div>
+                                            </div>
+                                            @foreach (var talk in venue.Talks)
+                                            {
+                                                if (talk.HasReservedSeat)
+                                                {
+                                            <div class="row row col-md-12">
+                                                <div class="col-md-3 text-left">@talk.Topic</div>
+                                                <div class="col-md-3 text-left">@talk.Speaker</div>
+                                                <div class="col-md-3 text-left">@talk.Info</div>
+                                                <div class="col-md-3 text-left">Time schedule will be published later</div>
+                                            </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
